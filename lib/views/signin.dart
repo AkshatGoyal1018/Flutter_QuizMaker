@@ -38,7 +38,9 @@ class _SignInState extends State<SignIn> {
                   email = val;
                 },
               ),
+
               SizedBox(height: 5,),
+
               TextFormField(
                 obscureText: true,
                 validator: (val){return val.isEmpty ? "Enter correct email id" : null;},
@@ -49,19 +51,25 @@ class _SignInState extends State<SignIn> {
                   password = val;
                 },
               ),
+
               SizedBox(height: 20,),
-              Container(
-                
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(25),
+
+              GestureDetector(
+                onTap: (){},
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width-40,
+                  child: Text("Sign In",style: TextStyle(color: Colors.white,fontSize: 16),),
                 ),
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width-40,
-                child: Text("Sign In",style: TextStyle(color: Colors.white,fontSize: 16),),
               ),
+
               SizedBox(height: 20,),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
