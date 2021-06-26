@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:quizmaker/views/signin.dart';
 import 'package:quizmaker/views/signup.dart';
-void main(){
+void main() {
+
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignUp(),
+      home: SignIn(),
     );
   }
 }

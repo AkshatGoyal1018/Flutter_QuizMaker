@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         _isLoading = true;
       });
-      await authService.signInEmailAndPass(email, password).then((value) {
+      authService.signInEmailAndPass(email, password).then((value) {
         if(value != null){
           setState(() {
             _isLoading = false;
@@ -80,7 +80,7 @@ class _SignUpState extends State<SignUp> {
               SizedBox(height: 5,),
               TextFormField(
                 obscureText: true,
-                validator: (val){return val.isEmpty ? "Enter correct email id" : null;},
+                validator: (val){return val.isEmpty ? "Enter your password" : null;},
                 decoration: InputDecoration(
                   hintText: "Password",
                 ),
@@ -92,6 +92,7 @@ class _SignUpState extends State<SignUp> {
               GestureDetector(
                 onTap: (){
                   signUp();
+
                 },
                 child: Container(
                   height: 50,
