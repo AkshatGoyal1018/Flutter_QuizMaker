@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quizmaker/services/auth.dart';
 import 'package:quizmaker/views/signup.dart';
 import 'package:quizmaker/widgets/widgets.dart';
+
+import 'home.dart';
 class SignIn extends StatefulWidget {
   const SignIn({Key key}) : super(key: key);
 
@@ -10,8 +13,28 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
   final _formKey = GlobalKey<FormState>();
   String email,password;
+
+  AuthService authService = new AuthService();
+  bool isLoading = false;
+
+  signIn() async{
+    if(_formKey.currentState.validate()){
+      setState(() {
+        isLoading = true;
+      });
+      await authService.signInEmailAndPass(email, password);
+      setState(() {
+        isLoading = false;
+      });
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => home()
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +45,11 @@ class _SignInState extends State<SignIn> {
         elevation: 0.0,
         brightness: Brightness.light,
       ),
-      body: Form(
+      body: isLoading ? Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ) : Form(
         key: _formKey,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
@@ -55,7 +82,9 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20,),
 
               GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  signIn();
+                },
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(
