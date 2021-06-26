@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quizmaker/services/auth.dart';
 import 'package:quizmaker/views/signin.dart';
 import 'package:quizmaker/widgets/widgets.dart';
+
+import 'home.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key key}) : super(key: key);
@@ -12,6 +15,28 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   String name,email,password;
+
+  AuthService authService = new AuthService();
+  bool _isLoading = false;
+
+  signUp() async{
+    if(_formKey.currentState.validate()){
+      setState(() {
+        _isLoading = true;
+      });
+      await authService.signInEmailAndPass(email, password).then((value) {
+        if(value != null){
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) => home()
+          ));
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +47,11 @@ class _SignUpState extends State<SignUp> {
         elevation: 0.0,
         brightness: Brightness.light,
       ),
-      body: Form(
+      body:  _isLoading ? Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ) : Form(
         key: _formKey,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
@@ -61,7 +90,9 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 20,),
               GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  signUp();
+                },
                 child: Container(
                   height: 50,
                   decoration: BoxDecoration(

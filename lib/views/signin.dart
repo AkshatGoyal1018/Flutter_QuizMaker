@@ -18,20 +18,23 @@ class _SignInState extends State<SignIn> {
   String email,password;
 
   AuthService authService = new AuthService();
-  bool isLoading = false;
+  bool _isLoading = false;
 
   signIn() async{
     if(_formKey.currentState.validate()){
       setState(() {
-        isLoading = true;
+        _isLoading = true;
       });
-      await authService.signInEmailAndPass(email, password);
-      setState(() {
-        isLoading = false;
+      await authService.signInEmailAndPass(email, password).then((val){
+        if(val != null){
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) => home()
+          ));
+        }
       });
-      Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => home()
-      ));
     }
   }
 
@@ -45,7 +48,7 @@ class _SignInState extends State<SignIn> {
         elevation: 0.0,
         brightness: Brightness.light,
       ),
-      body: isLoading ? Container(
+      body: _isLoading ? Container(
         child: Center(
           child: CircularProgressIndicator(),
         ),
