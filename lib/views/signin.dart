@@ -1,19 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizmaker/services/auth.dart';
+import 'package:quizmaker/views/HomeQM.dart';
 import 'package:quizmaker/views/signup.dart';
 import 'package:quizmaker/widgets/widgets.dart';
 
-import 'home.dart';
 class SignIn extends StatefulWidget {
   const SignIn({Key key}) : super(key: key);
-
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-
+  Future<FirebaseApp> _initializeFirebase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    User user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    }
+    return firebaseApp;
+  }
   final _formKey = GlobalKey<FormState>();
   String email,password;
 
@@ -26,12 +38,13 @@ class _SignInState extends State<SignIn> {
         _isLoading = true;
       });
       await authService.signInEmailAndPass(email, password).then((val){
+        print(val);
         if(val != null){
           setState(() {
             _isLoading = false;
           });
           Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (context) => home()
+            builder: (context) => Home(),
           ));
         }
       });
@@ -87,17 +100,9 @@ class _SignInState extends State<SignIn> {
               GestureDetector(
                 onTap: (){
                   signIn();
+                  print("$email $password ");
                 },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width-40,
-                  child: Text("Sign In",style: TextStyle(color: Colors.white,fontSize: 16),),
-                ),
+                child: blueButton(context, "Sign In")
               ),
 
               SizedBox(height: 20,),

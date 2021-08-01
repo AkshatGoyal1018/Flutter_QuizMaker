@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:quizmaker/Model/user.dart';
 
 class AuthService {
+
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   user _userFromFireBaseUser(User users) {
@@ -21,6 +23,7 @@ class AuthService {
   }
 
   Future signUpEmailAndPass(String email, String password) async {
+
     try {
       UserCredential authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);

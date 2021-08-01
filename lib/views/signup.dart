@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quizmaker/services/auth.dart';
+import 'package:quizmaker/views/HomeQM.dart';
 import 'package:quizmaker/views/signin.dart';
 import 'package:quizmaker/widgets/widgets.dart';
-
-import 'home.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key key}) : super(key: key);
@@ -30,7 +29,7 @@ class _SignUpState extends State<SignUp> {
             _isLoading = false;
           });
           Navigator.pushReplacement(context, MaterialPageRoute(
-              builder: (context) => home()
+              builder: (context) => Home(),
           ));
         }
       });
@@ -94,16 +93,7 @@ class _SignUpState extends State<SignUp> {
                   signUp();
 
                 },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width-40,
-                  child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 16),),
-                ),
+                child: blueButton(context, "Sign Up")
               ),
               SizedBox(height: 20,),
               Row(
