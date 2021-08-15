@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quizmaker/services/database.dart';
 import 'package:quizmaker/widgets/widgets.dart';
+import 'package:random_string/random_string.dart';
 class CreateQuiz extends StatefulWidget {
   const CreateQuiz({Key key}) : super(key: key);
 
@@ -10,8 +12,33 @@ class CreateQuiz extends StatefulWidget {
 
 class _CreateQuizState extends State<CreateQuiz> {
   final _formKey = GlobalKey<FormState>();
-  String quizImageUrl, quizTitle, quizDescription;
-
+  String quizImageUrl, quizTitle, quizDescription,quizId;
+  bool _isLoading = false;
+  
+  DatabaseService databaseService = new DatabaseService();
+  
+  createQuizOnline()async{
+    if(_formKey.currentState.validate()){
+      setState(() {
+        _isLoading = true;
+      });
+      
+      quizId = randomAlphaNumeric(16);
+      Map<String,String> quizMap = {
+        "quizId" : quizId,
+        "quizImgurl" : quizImageUrl,
+        "quizTitle" : quizTitle,
+        "quizDesc" : quizDescription
+      };
+      await databaseService.addQuizData(quizMap, quizId).then((value){
+        setState(() {
+          _isLoading = false;
+          Navigator.push(context, MaterialPageRoute(builder: builder))
+        });
+      })
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +50,11 @@ class _CreateQuizState extends State<CreateQuiz> {
         brightness: Brightness.light,
         iconTheme: IconThemeData(color: Colors.black87),
       ),
-      body: Form(
+      body: _isLoading ? Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ) : Form(
         key: _formKey,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 25),
