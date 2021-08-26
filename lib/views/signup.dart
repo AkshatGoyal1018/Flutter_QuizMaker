@@ -93,7 +93,8 @@ class _SignUpState extends State<SignUp> {
                   signUp();
 
                 },
-                child: blueButton(context, "Sign Up")
+                child: blueButton(context: context,
+                    label: "Sign Up")
               ),
               SizedBox(height: 20,),
               Row(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizmaker/services/database.dart';
+import 'package:quizmaker/views/addQuestion.dart';
 import 'package:quizmaker/widgets/widgets.dart';
 import 'package:random_string/random_string.dart';
 class CreateQuiz extends StatefulWidget {
@@ -33,9 +34,10 @@ class _CreateQuizState extends State<CreateQuiz> {
       await databaseService.addQuizData(quizMap, quizId).then((value){
         setState(() {
           _isLoading = false;
-          Navigator.push(context, MaterialPageRoute(builder: builder))
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddQuestion()
+          ));
         });
-      })
+      });
     }
   }
   
@@ -89,7 +91,13 @@ class _CreateQuizState extends State<CreateQuiz> {
               },
             ),
             Spacer(),
-            blueButton(context, "Create Quiz"),
+            GestureDetector(
+                onTap: (){
+                  createQuizOnline();
+                },
+                child: blueButton(context: context,
+                    label: "Create Quiz")
+            ),
             SizedBox(height: 50,),
           ],),
         ),

@@ -102,7 +102,8 @@ class _SignInState extends State<SignIn> {
                   signIn();
                   print("$email $password ");
                 },
-                child: blueButton(context, "Sign In")
+                child: blueButton(context: context,
+                label: "Sign In")
               ),
 
               SizedBox(height: 20,),

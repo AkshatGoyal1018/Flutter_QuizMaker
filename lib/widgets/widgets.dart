@@ -12,7 +12,7 @@ Widget appBar(BuildContext context){
   );
 }
 
-Widget blueButton(BuildContext context, String label){
+Widget blueButton({BuildContext context, String label, buttonWidth}){
   return Container(
     height: 50,
     decoration: BoxDecoration(
@@ -20,7 +20,7 @@ Widget blueButton(BuildContext context, String label){
       borderRadius: BorderRadius.circular(25),
     ),
     alignment: Alignment.center,
-    width: MediaQuery.of(context).size.width-40,
+    width: buttonWidth != null ? buttonWidth : MediaQuery.of(context).size.width-40,
     child: Text(label,style: TextStyle(color: Colors.white,fontSize: 16),),
   );
 }
