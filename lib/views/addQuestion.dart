@@ -19,7 +19,7 @@ class _AddQuestionState extends State<AddQuestion> {
   bool _isLoading = false;
   DatabaseService databaseService = new DatabaseService();
 
-  UploadQuizData(){
+  uploadQuestionData() async{
     if(_formKey.currentState.validate()){
       setState(() {
         _isLoading = true;
@@ -31,7 +31,11 @@ class _AddQuestionState extends State<AddQuestion> {
         "option3" : option3,
         "option4" : option4
       };
-      databaseService.addQuestionData(questionMap, widget.quizId);
+      await databaseService.addQuestionData(questionMap, widget.quizId).then((value){
+        setState(() {
+          _isLoading = false;
+        });
+      } );
     }
   }
 
@@ -108,7 +112,9 @@ class _AddQuestionState extends State<AddQuestion> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
                   child: blueButton(context: context,
                     label: "Submit",
                     buttonWidth:  MediaQuery.of(context).size.width/2 - 36
@@ -116,7 +122,9 @@ class _AddQuestionState extends State<AddQuestion> {
                 ),
                 SizedBox(width: 20,),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+                    uploadQuestionData();
+                  },
                   child: blueButton(context: context,
                       label: "Add Question",
                       buttonWidth:  MediaQuery.of(context).size.width/2 - 36
