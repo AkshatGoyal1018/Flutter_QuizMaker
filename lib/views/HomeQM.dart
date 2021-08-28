@@ -10,6 +10,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  Widget quizList(){
+    return Container(
+      child: ,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +27,7 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
         brightness: Brightness.light,
       ),
-      body: Container(
-      child: Column(children: [
-
-      ],),
-      ),
+      body: Container(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){

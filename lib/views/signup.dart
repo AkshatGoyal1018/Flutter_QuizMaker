@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizmaker/helper/funtions.dart';
 import 'package:quizmaker/services/auth.dart';
 import 'package:quizmaker/views/HomeQM.dart';
 import 'package:quizmaker/views/signin.dart';
@@ -28,6 +29,7 @@ class _SignUpState extends State<SignUp> {
           setState(() {
             _isLoading = false;
           });
+          HelperFunctions.saveUserLoggedInDetails(isLoggedin: true);
           Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => Home(),
           ));

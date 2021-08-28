@@ -6,6 +6,7 @@ import 'package:quizmaker/services/auth.dart';
 import 'package:quizmaker/views/HomeQM.dart';
 import 'package:quizmaker/views/signup.dart';
 import 'package:quizmaker/widgets/widgets.dart';
+import 'package:quizmaker/helper/funtions.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key key}) : super(key: key);
@@ -43,6 +44,7 @@ class _SignInState extends State<SignIn> {
           setState(() {
             _isLoading = false;
           });
+          HelperFunctions.saveUserLoggedInDetails(isLoggedin: true);
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) => Home(),
           ));

@@ -1,15 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions{
 
   static String userLoggedInKey = "USERLOGGEDINKEY";
-  saveUserLoggedInDetails({bool isLoggedin}) async{
+  static saveUserLoggedInDetails({@required bool isLoggedin}) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(userLoggedInKey, isLoggedin);
   }
 
-  getUserLoginDetails({bool isLoggedin}) async{
+  static Future<bool> getUserLoginDetails() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getBool(userLoggedInKey);
+    return prefs.getBool(userLoggedInKey);
   }
 }

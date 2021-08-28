@@ -35,7 +35,7 @@ class _AddQuestionState extends State<AddQuestion> {
         setState(() {
           _isLoading = false;
         });
-      } );
+      });
     }
   }
 
@@ -65,17 +65,17 @@ class _AddQuestionState extends State<AddQuestion> {
                 hintText: "Question",
               ),
               onChanged: (val){
-                val = question;
+                question = val;
               },
             ),
             SizedBox(height: 5,),
             TextFormField(
-              validator: (val) => val.isEmpty ? "Enter Option1(Correct Answer)" : null,
+              validator: (val) => val.isEmpty ? "Enter the Correct Option" : null,
               decoration: InputDecoration(
                 hintText: "Option1 (Correct Answer)",
               ),
               onChanged: (val){
-                val = option1;
+                option1 = val;
               },
             ),
             SizedBox(height: 5,),
@@ -85,7 +85,7 @@ class _AddQuestionState extends State<AddQuestion> {
                 hintText: "Option2",
               ),
               onChanged: (val){
-                val = option2;
+                option2 = val;
               },
             ),
             SizedBox(height: 5,),
@@ -95,7 +95,7 @@ class _AddQuestionState extends State<AddQuestion> {
                 hintText: "Option3",
               ),
               onChanged: (val){
-                val = option3;
+                option3 = val;
               },
             ),
             SizedBox(height: 5,),
@@ -105,7 +105,7 @@ class _AddQuestionState extends State<AddQuestion> {
                 hintText: "Option4",
               ),
               onChanged: (val){
-                val = option4;
+                option4 = val;
               },
             ),
             Spacer(),
